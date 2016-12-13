@@ -17,7 +17,7 @@ public class ConectorBD {
         this.nombreDB = nombreDB;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        Class.forName("oracle.jdbc.OracleDriver");
+        Class.forName("");
     }
 
     public void inicarConexion() throws SQLException {
