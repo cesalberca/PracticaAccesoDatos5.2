@@ -11,7 +11,7 @@ public class ConectorBD {
     private String usuario;
     private String contrasena;
 
-    private static final String DB_CONNECTION = "jdbc:oracle:thin:@//localhost:1521/XE";
+    private static final String DB_CONNECTION = "jdbc:oracle:thin:@//localhost:1521/";
 
     public ConectorBD(String nombreDB, String usuario, String contrasena) throws ClassNotFoundException {
         this.nombreDB = nombreDB;
@@ -21,7 +21,7 @@ public class ConectorBD {
     }
 
     public void inicarConexion() throws SQLException {
-        String url = DB_CONNECTION;
+        String url = DB_CONNECTION + nombreDB;
         conexion = DriverManager.getConnection(url, usuario, contrasena);
     }
 
@@ -30,16 +30,7 @@ public class ConectorBD {
             conexion.close();
     }
 
-    public void test() throws SQLException {
-        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID = ?");
-        preparedStatement.setInt(1, 100);
-        ResultSet rs = preparedStatement.executeQuery();
-
-        while (rs.next()) {
-            String userid = rs.getString("FIRST_NAME");
-            String username = rs.getString("LAST_NAME");
-            System.out.println(userid);
-        }
+    public Connection getConexion() {
+        return conexion;
     }
-
 }
