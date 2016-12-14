@@ -17,7 +17,7 @@ public class ConectorBD {
         this.nombreDB = nombreDB;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        Class.forName("");
+        Class.forName("oracle.jdbc.driver.OracleDriver");
     }
 
     public void inicarConexion() throws SQLException {
@@ -31,13 +31,14 @@ public class ConectorBD {
     }
 
     public void test() throws SQLException {
-        String selectSQL = "SELECT * FROM EMPLOYEES WHERE USER_ID = ?";
-        PreparedStatement preparedStatement = conexion.prepareStatement(selectSQL);
+        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID = ?");
         preparedStatement.setInt(1, 100);
-        ResultSet rs = preparedStatement.executeQuery(selectSQL );
+        ResultSet rs = preparedStatement.executeQuery();
+
         while (rs.next()) {
             String userid = rs.getString("FIRST_NAME");
             String username = rs.getString("LAST_NAME");
+            System.out.println(userid);
         }
     }
 
