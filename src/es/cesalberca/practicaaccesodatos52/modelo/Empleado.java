@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Cesar
  */
 public class Empleado {
+    private int id;
     private String email;
     private String nombre;
     private String apellido;
@@ -13,13 +14,12 @@ public class Empleado {
     private double salario;
     private Date fechaContratacion;
 
-    public Empleado(String email, String nombre, String apellido, String telefono, double salario, Date fechaContratacion) {
-        this.email = email;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.salario = salario;
-        this.fechaContratacion = fechaContratacion;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -73,7 +73,8 @@ public class Empleado {
     @Override
     public String toString() {
         return "Empleado{" +
-                "email='" + email + '\'' +
+                "id=" + id +
+                ", email='" + email + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", telefono='" + telefono + '\'' +

@@ -38,14 +38,13 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                empleado = new Empleado(
-                        rs.getString("EMPLOYEE_ID"),
-                        rs.getString("FIRST_NAME"),
-                        rs.getString("LAST_NAME"),
-                        rs.getString("PHONE_NUMBER"),
-                        rs.getDouble("SALARY"),
-                        rs.getDate("HIRE_DATE")
-                        );
+                empleado = new Empleado();
+                empleado.setId(rs.getInt("EMPLOYEE_ID"));
+                empleado.setNombre(rs.getString("FIRST_NAME"));
+                empleado.setApellido(rs.getString("LAST_NAME"));
+                empleado.setTelefono(rs.getString("PHONE_NUMBER"));
+                empleado.setFechaContratacion(rs.getDate("HIRE_DATE"));
+                empleado.setSalario(rs.getDouble("SALARY"));
                 empleados.add(empleado);
             }
 
