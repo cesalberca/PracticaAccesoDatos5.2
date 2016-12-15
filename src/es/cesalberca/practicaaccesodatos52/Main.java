@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         AppVista vista = new AppVista();
-        GestorApp gestorApp = new GestorApp();
-        AppControlador appControlador = new AppControlador(vista, gestorApp);
+//        GestorApp gestorApp = new GestorApp();
+//        AppControlador appControlador = new AppControlador(vista, gestorApp);
     }
 }

@@ -19,7 +19,7 @@ public class ConectorBD {
         Class.forName("oracle.jdbc.driver.OracleDriver");
     }
 
-//    public List hacerQuery(String query) {
+//    public List hacerQuery(String query, Class clase) {
 //        List<?> resultadoQuery = new ArrayList<>();
 //        ResultSet rs = null;
 //        PreparedStatement preparedStatement = null;

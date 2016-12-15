@@ -1,5 +1,7 @@
 package es.cesalberca.practicaaccesodatos52.modelo;
 
+import java.util.List;
+
 /**
  * Created by César
  */
@@ -10,8 +12,12 @@ public class GestorApp {
 
         System.out.println("Consiguiendo empleados...");
 
-        for (Empleado e : empleadoDao.getTodosEmpleados()) {
-            System.out.println(e.toString());
+        List<Empleado> empleados = empleadoDao.getTodosEmpleados();
+
+        if (empleados.size() > 0) {
+            for (Empleado e : empleados) {
+                System.out.println(e.toString());
+            }
         }
     }
 }
