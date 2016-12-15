@@ -12,27 +12,30 @@ import java.util.List;
  */
 public class EmpleadoDaoImpl implements EmpleadoDao {
 
-    private Connection conexion;
+    private ConectorBD conectorBD;
 
     public EmpleadoDaoImpl() {
-        ConectorBD conectorBD;
         try {
             conectorBD = new ConectorBD();
-            conectorBD.inicarConexion();
-            this.conexion = conectorBD.getConexion();
-        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Conectado a la base de datos");
+        } catch (ClassNotFoundException e) {
             System.out.println("No ha sido posible conectarse a la base de datos");
         }
     }
 
     @Override
     public List<Empleado> getTodosEmpleados() {
+        Connection conexion = null;
+        ResultSet rs = null;
+        PreparedStatement preparedStatement = null;
+
         try {
             Empleado empleado;
             List<Empleado> empleados = new ArrayList<>();
 
-            PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES");
-            ResultSet rs = preparedStatement.executeQuery();
+            conexion = conectorBD.crearNuevaConexion();
+            preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES");
+            rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
                 empleado = new Empleado(
@@ -45,9 +48,15 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
                         );
                 empleados.add(empleado);
             }
+
+            conectorBD.cerrarConexion();
             return empleados;
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error al conseguir la lista de empleados. Error: " + ex);
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException ignore) {}
+            if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException ignore) {}
+            if (conexion != null) try { conexion.close(); } catch (SQLException ignore) {}
         }
         return  null;
     }
