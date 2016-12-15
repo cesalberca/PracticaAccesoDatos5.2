@@ -6,17 +6,14 @@ import java.sql.*;
  * Created by César
  */
 public class ConectorBD {
-    private Connection conexion;
-    private String nombreDB;
-    private String usuario;
-    private String contrasena;
-
+    private final static String nombreDB = "XE";
+    private final static String usuario = "HR";
+    private final static String contrasena = "HR";
     private static final String DB_CONNECTION = "jdbc:oracle:thin:@//localhost:1521/";
 
-    public ConectorBD(String nombreDB, String usuario, String contrasena) throws ClassNotFoundException {
-        this.nombreDB = nombreDB;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
+    private Connection conexion;
+
+    public ConectorBD() throws ClassNotFoundException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
     }
 

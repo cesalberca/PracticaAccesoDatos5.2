@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Cesar
  */
 public interface EmpleadoDao {
-    List<Empleado> getTodosEmpleados() throws SQLException;
+    List<Empleado> getTodosEmpleados();
     Empleado getEmpleado(int id);
     void updateEmpleado(Empleado student);
     void deleteEmpleado(Empleado student);

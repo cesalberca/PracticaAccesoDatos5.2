@@ -14,32 +14,42 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
 
     private Connection conexion;
 
-    public EmpleadoDaoImpl(Connection conexion) {
-        this.conexion = conexion;
+    public EmpleadoDaoImpl() {
+        ConectorBD conectorBD;
+        try {
+            conectorBD = new ConectorBD();
+            conectorBD.inicarConexion();
+            this.conexion = conectorBD.getConexion();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("No ha sido posible conectarse a la base de datos");
+        }
     }
 
     @Override
-    public List<Empleado> getTodosEmpleados() throws SQLException {
-        Empleado empleado = null;
-        List<Empleado> empleados = new ArrayList<>();
+    public List<Empleado> getTodosEmpleados() {
+        try {
+            Empleado empleado;
+            List<Empleado> empleados = new ArrayList<>();
 
-        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES");
-        ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement = conexion.prepareStatement("SELECT * FROM EMPLOYEES");
+            ResultSet rs = preparedStatement.executeQuery();
 
-        while (rs.next()) {
-            empleado = new Empleado(
-                    rs.getString("EMPLOYEE_ID"),
-                    rs.getString("FIRST_NAME"),
-                    rs.getString("LAST_NAME"),
-                    rs.getString("PHONE_NUMBER"),
-                    rs.getDouble("SALARY"),
-                    rs.getDate("HIRE_DATE")
-                    );
-            System.out.println(empleado.toString());
-            empleados.add(empleado);
+            while (rs.next()) {
+                empleado = new Empleado(
+                        rs.getString("EMPLOYEE_ID"),
+                        rs.getString("FIRST_NAME"),
+                        rs.getString("LAST_NAME"),
+                        rs.getString("PHONE_NUMBER"),
+                        rs.getDouble("SALARY"),
+                        rs.getDate("HIRE_DATE")
+                        );
+                empleados.add(empleado);
+            }
+            return empleados;
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
-
-        return empleados;
+        return  null;
     }
 
     @Override
