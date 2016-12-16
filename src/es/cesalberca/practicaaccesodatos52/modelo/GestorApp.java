@@ -16,4 +16,9 @@ public class GestorApp {
         System.out.println("Consiguiendo empleados...");
         return empleadoDao.getTodosEmpleados();
     }
+
+    public void crearEmpleado() {
+        System.out.println("Creando empleado...");
+//        empleadoDao.createEmpleado();
+    }
 }

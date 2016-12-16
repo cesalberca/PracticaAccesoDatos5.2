@@ -34,6 +34,10 @@ public class AppVista extends JFrame {
         jtEmpleados.setModel(tableModel);
     }
 
+    public void addCrearEmpleadoListener(ActionListener listener) {
+        crearEmpleadoButton.addActionListener(listener);
+    }
+
     public void addRefrescarListener(ActionListener listener) {
         refrescarButton.addActionListener(listener);
     }
