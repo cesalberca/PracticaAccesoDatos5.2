@@ -9,6 +9,7 @@ import java.util.List;
 public interface EmpleadoDao {
     List<Empleado> getTodosEmpleados();
     Empleado getEmpleado(int id);
-    void updateEmpleado(Empleado student);
-    void deleteEmpleado(Empleado student);
+    void createEmpleado(Empleado empleado);
+    void updateEmpleado(Empleado empleado);
+    void deleteEmpleado(Empleado empleado);
 }

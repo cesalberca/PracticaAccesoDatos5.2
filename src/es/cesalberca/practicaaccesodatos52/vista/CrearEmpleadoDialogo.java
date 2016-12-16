@@ -4,11 +4,19 @@ import es.cesalberca.practicaaccesodatos52.controlador.AppControlador;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.text.ParseException;
 
 public class CrearEmpleadoDialogo extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField jtFechaDeContratacion;
+    private JTextField jtEmail;
+    private JTextField jtNombre;
+    private JTextField jtApellido;
+    private JTextField jtTelefono;
+    private JTextField jtSalario;
+    private JTextField jtId;
 
     private AppControlador appControlador;
 
@@ -36,8 +44,20 @@ public class CrearEmpleadoDialogo extends JDialog {
     }
 
     public void onOK() {
-        System.out.println("Clickado desde on ok");
-        appControlador.crearEmpleado();
+        try {
+            appControlador.crearEmpleado(
+                    jtId.getText(),
+                    jtNombre.getText(),
+                    jtApellido.getText(),
+                    jtEmail.getText(),
+                    jtTelefono.getText(),
+                    jtFechaDeContratacion.getText(),
+                    jtSalario.getText()
+            );
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Error de formateo de campos");
+            System.out.println(e);
+        }
         dispose();
     }
 

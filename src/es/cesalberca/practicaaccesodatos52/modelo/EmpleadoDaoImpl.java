@@ -1,9 +1,7 @@
 package es.cesalberca.practicaaccesodatos52.modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +61,38 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
     @Override
     public Empleado getEmpleado(int id) {
         return null;
+    }
+
+    @Override
+    public void createEmpleado(Empleado empleado) {
+        Connection conexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            conexion = conectorBD.crearNuevaConexion();
+
+            preparedStatement = conexion.prepareStatement("INSERT INTO EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, SALARY, HIRE_DATE, JOB_ID) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setInt(1, empleado.getId());
+            preparedStatement.setString(2, empleado.getNombre());
+            preparedStatement.setString(3, empleado.getApellido());
+            preparedStatement.setString(4, empleado.getEmail());
+            preparedStatement.setDouble(5, empleado.getSalario());
+
+            java.util.Date utilStartDate = empleado.getFechaContratacion();
+            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+            preparedStatement.setDate(6, sqlStartDate);
+            preparedStatement.setString(7, "IT_PROG");
+
+            preparedStatement.executeUpdate();
+
+            conectorBD.cerrarConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar empleado. Error: " + ex);
+        } finally {
+            if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException ignore) {}
+            if (conexion != null) try { conexion.close(); } catch (SQLException ignore) {}
+        }
     }
 
     @Override
