@@ -108,14 +108,18 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
         try {
             conexion = conectorBD.crearNuevaConexion();
 
-            preparedStatement = conexion.prepareStatement("DELETE FROM EMPLOYEES WHERE ID = ?");
-            preparedStatement.setInt(1, empleado.getId());
+            preparedStatement = conexion.prepareStatement("DELETE FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE(?, 'DD MM yyyy')");
+
+            java.util.Date utilStartDate = empleado.getFechaContratacion();
+            java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+            preparedStatement.setDate(1, sqlStartDate);
 
             preparedStatement.executeUpdate();
 
             conectorBD.cerrarConexion();
         } catch (SQLException ex) {
-            System.out.println("Error al borrar empleado. Error: " + ex);
+            System.out.println("Error al borrar empleados. Error: " + ex);
         } finally {
             if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException ignore) {}
             if (conexion != null) try { conexion.close(); } catch (SQLException ignore) {}

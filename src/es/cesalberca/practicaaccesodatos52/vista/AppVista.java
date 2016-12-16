@@ -42,8 +42,13 @@ public class AppVista extends JFrame {
         refrescarButton.addActionListener(listener);
     }
 
-    // Esto no debería saber que es un empleado
+    public void addEliminarListener(ActionListener listener) {
+        borrarEmpleadosButton.addActionListener(listener);
+    }
+
+    // Esto no debería saber qué es un empleado
     public void setTablaEmpleados(List<Empleado> tablaEmpleados) {
+        tableModel.setRowCount(0);
         for (Empleado empleado : tablaEmpleados) {
             tableModel.addRow(new Object[]{
                 empleado.getId(),

@@ -1,5 +1,7 @@
 package es.cesalberca.practicaaccesodatos52.modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -32,5 +34,15 @@ public class GestorApp {
         e.setSalario(salario);
 
         empleadoDao.createEmpleado(e);
+    }
+
+    public void borrarEmpleados2016() throws ParseException {
+        Empleado empleadoTipoABorrar = new Empleado();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date d = sdf.parse("2016");
+        empleadoTipoABorrar.setFechaContratacion(d);
+
+        System.out.println(empleadoTipoABorrar);
+        empleadoDao.deleteEmpleado(empleadoTipoABorrar);
     }
 }
