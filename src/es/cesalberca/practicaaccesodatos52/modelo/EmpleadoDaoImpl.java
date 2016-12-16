@@ -101,7 +101,24 @@ public class EmpleadoDaoImpl implements EmpleadoDao {
     }
 
     @Override
-    public void deleteEmpleado(Empleado student) {
+    public void deleteEmpleado(Empleado empleado) {
+        Connection conexion = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            conexion = conectorBD.crearNuevaConexion();
+
+            preparedStatement = conexion.prepareStatement("DELETE FROM EMPLOYEES WHERE ID = ?");
+            preparedStatement.setInt(1, empleado.getId());
+
+            preparedStatement.executeUpdate();
+
+            conectorBD.cerrarConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar empleado. Error: " + ex);
+        } finally {
+            if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException ignore) {}
+            if (conexion != null) try { conexion.close(); } catch (SQLException ignore) {}
+        }
     }
 }
